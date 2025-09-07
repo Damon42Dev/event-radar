@@ -1,0 +1,8 @@
+node_modules/
+*.log
+*.zip
+extension/dist/
+server/node_modules/
+extension/node_modules/
+server/server.log
+.DS_Store

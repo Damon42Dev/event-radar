@@ -87,7 +87,15 @@ const App = observer(() => {
   }
 
   const handleGenerateWebCal = () => {
-    chrome.runtime?.sendMessage({ type: 'GENERATE_WEBCAL', payload: eventStore.events })
+    chrome.runtime?.sendMessage({ type: 'GENERATE_WEBCAL', payload: eventStore.events }, (resp) => {
+      if (!resp?.ok) return alert(resp?.error || 'Failed to generate WebCal')
+      const url = resp.webcal || (resp.url ? `http://localhost:3000${resp.url}` : '')
+      if (url) {
+        window.open(url, '_blank')
+      } else {
+        alert('No link returned')
+      }
+    })
   }
 
   return (

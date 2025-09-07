@@ -14,9 +14,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message?.type === 'GENERATE_WEBCAL') {
-    // Placeholder: forward to a backend if configured later
-    // For now, just acknowledge
-    sendResponse({ ok: true, message: 'WebCal generation not configured' })
+    const events = message.payload || []
+    const backendBase = (typeof importMeta !== 'undefined' && importMeta.env?.VITE_BACKEND_BASE) || (typeof import.meta !== 'undefined' && import.meta.env?.VITE_BACKEND_BASE) || 'http://localhost:3000'
+    fetch(`${backendBase}/generate-ics`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(events)
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        sendResponse({ ok: true, ...data })
+      })
+      .catch((err) => {
+        sendResponse({ ok: false, error: err?.message || 'Request failed' })
+      })
   }
   // Return true to indicate async sendResponse possible
   return true

@@ -1,1 +1,1 @@
-import './assets/index.js-BSnpaopj.js';
+import './assets/index.js-CORkdngR.js';
