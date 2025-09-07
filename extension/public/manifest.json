@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Web Event to Calendar",
+  "version": "1.0.0",
+  "description": "提取网页事件并导入日历的 Chrome 扩展",
+  "action": {
+    "default_popup": "src/popup/index.html"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "src/background/index.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/index.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
+
