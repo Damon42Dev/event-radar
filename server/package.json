@@ -1,0 +1,16 @@
+{
+  "name": "web-event-to-calendar-server",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ics": "^2.41.0",
+    "nanoid": "^5.0.7"
+  }
+}
+
